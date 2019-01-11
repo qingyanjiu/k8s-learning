@@ -1,4 +1,4 @@
-import kubeless.io.Query;
+import io.kubeless.Query;
 import org.junit.Assert;
 import org.junit.Test;
 
