@@ -27,9 +27,8 @@ public class Query {
     public String getData(io.kubeless.Event event, io.kubeless.Context context) {
         System.out.println(event.Data);
         List result = new ArrayList();
-        Query query = new Query();
         if("qryAllTypes".equals(event.Data)){
-            result = query.qryAllTypes();
+            result = qryAllTypes();
         }
         return JSONObject.toJSON(result).toString();
     }
@@ -59,7 +58,7 @@ public class Query {
 
     public List<Map> qryAllTypes() {
         String sql = "select * from storage_type";
-        Connection conn = getConn();
+        conn = getConn();
         Statement stmt = null;
         ResultSet ret = null;
         List result = new ArrayList();
