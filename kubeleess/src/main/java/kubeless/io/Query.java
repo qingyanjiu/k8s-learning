@@ -18,6 +18,10 @@ public class Query {
 
     private static Connection conn = null;
 
+    public Query() {
+
+    }
+
 
     public List<Map> getData(io.kubeless.Event event, io.kubeless.Context context) {
         System.out.println(event.Data);
