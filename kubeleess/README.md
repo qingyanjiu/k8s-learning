@@ -38,3 +38,6 @@ kubeless function call qrytype --data 'qryAllTypes'<br/>
 测了一下获取到数据没问题，但是返回数据有中文貌似会报错。。。java.io.IOException: too many bytes to write to stream<br/>
 
 还可以暴露成service，具体看文档即可
+
+*还可以部署UI，对于调试很有帮助<br/>
+ kubectl create -f https://raw.githubusercontent.com/kubeless/kubeless-ui/master/k8s.yaml
