@@ -1,5 +1,6 @@
 package io.kubeless;
 
+import com.alibaba.fastjson.JSONObject;
 import io.kubeless.Event;
 import io.kubeless.Context;
 
@@ -23,14 +24,14 @@ public class Query {
     }
 
 
-    public List<Map> getData(io.kubeless.Event event, io.kubeless.Context context) {
+    public String getData(io.kubeless.Event event, io.kubeless.Context context) {
         System.out.println(event.Data);
         List result = new ArrayList();
         Query query = new Query();
         if("qryAllTypes".equals(event.Data)){
             result = query.qryAllTypes();
         }
-        return result;
+        return JSONObject.toJSON(result).toString();
     }
 
 
