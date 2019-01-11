@@ -19,7 +19,7 @@ public class Query {
     private static Connection conn = null;
 
 
-    public Map getData(io.kubeless.Event event, io.kubeless.Context context) {
+    public List<Map> getData(io.kubeless.Event event, io.kubeless.Context context) {
         System.out.println(event.Data);
         Query query = new Query();
         if("qryAllTypes".equals(event.Data)){
