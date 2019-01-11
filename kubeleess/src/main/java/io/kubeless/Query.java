@@ -1,4 +1,4 @@
-package kubeless.io;
+package io.kubeless;
 
 import io.kubeless.Event;
 import io.kubeless.Context;
