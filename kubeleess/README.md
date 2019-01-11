@@ -32,4 +32,9 @@ public String getData(io.kubeless.Event event, io.kubeless.Context context) {<br
 否则调试会报错你懂的。
 部署之前把这些注释去掉，否则会报错
 
-测了一下获取到数据没问题，但是返回数据有中文貌似会报错。。。java.io.IOException: too many bytes to write to stream
+call 函数用以下命令 <br/>
+kubeless function call qrytype --data 'qryAllTypes'<br/>
+
+测了一下获取到数据没问题，但是返回数据有中文貌似会报错。。。java.io.IOException: too many bytes to write to stream<br/>
+
+还可以暴露成service，具体看文档即可
