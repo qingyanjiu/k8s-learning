@@ -17,12 +17,7 @@ public class Query {
     private String username = "root";
     private String password = "19831226lc";
 
-    private static Connection conn = null;
-
-    public Query() {
-
-    }
-
+    private Connection conn = null;
 
     public String getData(io.kubeless.Event event, io.kubeless.Context context) {
         System.out.println(event.Data);
@@ -34,18 +29,16 @@ public class Query {
     }
 
 
-    private Connection getConn() {
+    private void getConn() {
         try {
             Class.forName(driver);
-            if (conn == null)
-                conn = DriverManager.getConnection(url, username, password);
+            conn = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
             close();
         }
-        return conn;
     }
 
     private void close() {
