@@ -1,0 +1,67 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: statefulset
+  labels:
+    app: statefulset
+    env: dev
+spec:
+  selector:
+    matchLabels:
+      app: statefulset
+      env: dev
+  replicas: 1
+  serviceName: "statefulset-headless"
+  template:
+    metadata:
+      name: statefulset
+      labels:
+        app: statefulset
+        env: dev
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: statefulset
+        image: daocloud.io/alaien/storage
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 7777
+        command: ["java","-jar","-Dspring.profiles.active=dev","storage-backend.jar"]
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: statefulset-headless
+  labels:
+    app: statefulset
+    env: dev
+spec:
+  selector:
+    app: statefulset
+    env: dev
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 7777
+
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: statefulset
+  labels:
+    app: statefulset
+    env: dev
+spec:
+  selector:
+    app: statefulset
+    env: dev
+  clusterIP: None
+  ports:
+  - port: 8000
+    targetPort: 7777
