@@ -17,36 +17,28 @@ public class Query {
     private String username = "root";
     private String password = "19831226lc";
 
-    private static Connection conn = null;
-
-    public Query() {
-
-    }
-
+    private Connection conn = null;
 
     public String getData(io.kubeless.Event event, io.kubeless.Context context) {
         System.out.println(event.Data);
         List result = new ArrayList();
-        Query query = new Query();
         if("qryAllTypes".equals(event.Data)){
-            result = query.qryAllTypes();
+            result = qryAllTypes();
         }
         return JSONObject.toJSON(result).toString();
     }
 
 
-    private Connection getConn() {
+    private void getConn() {
         try {
             Class.forName(driver);
-            if (conn == null)
-                conn = DriverManager.getConnection(url, username, password);
+            conn = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
             close();
         }
-        return conn;
     }
 
     private void close() {
@@ -59,7 +51,7 @@ public class Query {
 
     public List<Map> qryAllTypes() {
         String sql = "select * from storage_type";
-        Connection conn = getConn();
+        conn = getConn();
         Statement stmt = null;
         ResultSet ret = null;
         List result = new ArrayList();
