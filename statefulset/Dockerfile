@@ -1,6 +1,7 @@
 FROM maven:3
-COPY ./statefulset/* web/
+COPY ./statefulset web
 WORKDIR /web
+RUN ls
 RUN mvn clean package -Dmaven.test.skip=true
 
 FROM openjdk:8-jdk
