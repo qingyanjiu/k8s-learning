@@ -26,7 +26,6 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 7777
-        command: ["java","-jar","-Dspring.profiles.active=dev","storage-backend.jar"]
 
 ---
 
