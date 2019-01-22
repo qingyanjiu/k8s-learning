@@ -1,5 +1,5 @@
 FROM maven:3
-COPY . /web/
+COPY ./statefulset/* /web/
 WORKDIR /web
 RUN mvn package -Dmaven.test.skip=true
 
