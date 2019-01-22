@@ -1,5 +1,5 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: apps/v1
+kind: StatefulSet
 metadata:
   name: statefulset
   labels:
@@ -10,7 +10,7 @@ spec:
     matchLabels:
       app: statefulset
       env: dev
-  replicas: 1
+  replicas: 3 
   serviceName: "statefulset-headless"
   template:
     metadata:
@@ -22,17 +22,25 @@ spec:
       restartPolicy: Always
       containers:
       - name: statefulset
-        image: daocloud.io/alaien/storage
+        image: alaien/statefulset-test
         imagePullPolicy: Always
         ports:
         - containerPort: 7777
-
+        command: 
+        - bash
+        - "-c"
+        - |
+          if [[ `hostname` =~ -([0-9])$ ]] ; then
+          export STATEFULSET_ENV_SERVER_TAG=${BASH_REMATCH[1]}
+          fi
+          env | grep STATEFULSET_ENV_SERVER_TAG
+          java -jar web.jar
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: statefulset-headless
+  name: statefulset
   labels:
     app: statefulset
     env: dev
@@ -52,7 +60,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: statefulset
+  name: statefulset-headless
   labels:
     app: statefulset
     env: dev
