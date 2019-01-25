@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv
+  labels:
+    release: stable
+spec:
+  capacity:
+    storage: 2Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: us
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /data/nfs
+    server: cross.mokulive.stream
