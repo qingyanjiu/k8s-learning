@@ -1,0 +1,29 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: pv
+spec:
+  selector:
+    matchLabels:
+      app: test
+  replicas: 1
+  template:
+    metadata:
+      name: pvpod
+      labels:
+        app: test
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: pvcontainer
+          image: nginx
+          volumeMounts:
+          - mountPath: "/usr/share/nginx/html"
+            name: mypd
+          ports:
+          - name: nginx
+            containerPort: 80
+      volumes:
+        - name: mypd
+          persistentVolumeClaim:
+            claimName: pvc
