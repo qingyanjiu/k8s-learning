@@ -1,0 +1,49 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: jenkins
+  labels:
+    app: jenkins
+spec:
+  selector:
+    matchLabels:
+      app: jenkins
+  replicas: 1
+  template:
+    metadata:
+      name: jenkins
+      labels:
+        app: jenkins
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: jenkins
+        image: jenkins
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - mountPath: /var/jenkins_home
+          name: jenkins
+        env:
+        - name: JAVA_OPTS
+          value: "-Djava.awt.headless=true -Xms256m -Xmx512m -XX:MaxNewSize=256m -XX:MaxPermSize=256m"  
+      volumes:
+      - name: jenkins
+        persistentVolumeClaim:
+          claimName: pvc-jenkins
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins
+  labels:
+    app: jenkins
+spec:
+  selector:
+    app: jenkins
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8080
