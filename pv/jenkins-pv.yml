@@ -17,5 +17,5 @@ spec:
     - hard
     - nfsvers=4.1
   nfs:
-    path: /var/lib/jenkins
+    path: /data/nfs
     server: config.mokulive.stream
