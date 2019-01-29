@@ -11,11 +11,11 @@ spec:
   volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
-  persistentVolumeReclaimPolicy: Recycle
+  persistentVolumeReclaimPolicy: Retain
   storageClassName: us
   mountOptions:
     - hard
     - nfsvers=4.1
   nfs:
     path: /data/nfs
-    server: config.mokulive.stream
+    server: cross.mokulive.stream

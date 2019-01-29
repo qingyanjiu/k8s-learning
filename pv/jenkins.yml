@@ -18,7 +18,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: jenkins
-        image: jenkins
+        image: jenkins:2.60.3
         ports:
         - containerPort: 8080
         volumeMounts:
@@ -26,7 +26,7 @@ spec:
           name: jenkins
         env:
         - name: JAVA_OPTS
-          value: "-Djava.awt.headless=true -Xms256m -Xmx512m -XX:MaxNewSize=256m -XX:MaxPermSize=256m"  
+          value: "-Djava.awt.headless=true -Xms256m -Xmx2048m -XX:MaxNewSize=256m -XX:MaxPermSize=256m"  
       volumes:
       - name: jenkins
         persistentVolumeClaim:
